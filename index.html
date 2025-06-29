@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yomo Digital</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --main-color: #1db954;
+      --bg-color: #121212;
+      --text-color: #fff;
+      --card-bg: #1e1e1e;
+      --secondary-color: #1f1f1f;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    header {
+      background-color: var(--secondary-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .lang-switcher select {
+      background-color: var(--bg-color);
+      color: white;
+      border: 1px solid var(--main-color);
+      padding: 5px;
+      border-radius: 5px;
+    }
+    a.back {
+      color: var(--main-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    /* Home styles */
+    #home .hero {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    #home .hero h1 {
+      font-size: 2.5rem;
+    }
+    #home .hero p {
+      color: #ccc;
+    }
+    #home .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    #home .card {
+      background: var(--secondary-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+      user-select: none;
+    }
+    #home .card:hover {
+      transform: translateY(-5px);
+    }
+    #home .card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--main-color);
+    }
+    #home .cta-btn {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: var(--main-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    /* Product page */
+    #product {
+      display: none;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    #product h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    #product p.desc {
+      color: #ccc;
+      margin-bottom: 2rem;
+    }
+    #product .plans {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    #product .plan {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 220px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      border: 2px solid transparent;
+      user-select: none;
+    }
+    #product .plan:hover {
+      border-color: var(--main-color);
+    }
+    #product .plan.active {
+      border-color: var(--main-color);
+    }
+    #product .plan h3 {
+      margin-bottom: 0.5rem;
+    }
+    #product .plan p {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    #product .price {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--main-color);
+    }
+    #product .cta-btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: var(--main-color);
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      user-select: none;
+    }
+    /* Payment page */
+    #payment {
+      display: none;
+      padding: 2rem 1rem;
+      max-width: 400px;
+      margin: auto;
+      background: var(--secondary-color);
+      border-radius: 12px;
+      text-align: left;
+    }
+    #payment h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    #payment .order-summary {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      color: #ddd;
+    }
+    #payment label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.3rem;
+    }
+    #payment input, #payment select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: none;
+      background: var(--card-bg);
+      color: white;
+      font-size: 1rem;
+    }
+    #payment button {
+      width: 100%;
+      margin-top: 1.5rem;
+      background: var(--main-color);
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #payment button:hover {
+      background: #17c856;
+    }
+    #payment .back {
+      margin-bottom: 1rem;
+    }
+    #confirmation {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--main-color);
+      font-weight: bold;
+    }
+       footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--secondary-color);
+      font-size: 0.9rem;
+      color: #888;
+    }
+    footer,  a{
+        color: #17c856;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="showHome()">[LOGO YOMO]</div>
+    <div class="lang-switcher">
+      <select id="lang" onchange="changeLang(this.value)">
+        <option value="fr">🇫🇷 FR</option>
+        <option value="en">🇬🇧 EN</option>
+        <option value="ar">🇲🇦 AR</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home">
+      <div class="hero">
+        <h1 id="title">Yomo Digital</h1>
+        <p id="subtitle">Abonnements digitaux fiables, rapides et pas chers. IPTV, Spotify, Netflix, YouTube Premium et plus – à portée de clic.</p>
+      </div>
+      <div class="services">
+        <div class="card" onclick="showProduct('IPTV')">
+          <i class="fas fa-tv"></i>
+          <h3 id="iptv-title">IPTV</h3>
+          <p id="iptv-desc">Streaming illimité de chaînes internationales.</p>
+        </div>
+        <div class="card" onclick="showProduct('Spotify')">
+          <i class="fab fa-spotify"></i>
+          <h3 id="spotify-title">Spotify Premium</h3>
+          <p id="spotify-desc">Musique sans pubs, en qualité max.</p>
+        </div>
+        <div class="card" onclick="showProduct('Netflix')">
+          <i class="fas fa-film"></i>
+          <h3 id="netflix-title">Netflix</h3>
+          <p id="netflix-desc">Séries, films et documentaires HD/4K.</p>
+        </div>
+        <div class="card" onclick="showProduct('YouTube')">
+          <i class="fab fa-youtube"></i>
+          <h3 id="yt-title">YouTube Premium</h3>
+          <p id="yt-desc">Ad-free, background play, downloads.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT -->
+    <section id="product">
+      <a class="back" onclick="showHome()">← Retour</a>
+      <h1 id="product-title">Spotify Premium</h1>
+      <p class="desc" id="product-desc">Profitez de votre musique sans pubs, avec une qualité maximale, en solo ou en famille.</p>
+      <div class="plans" id="plans-container"></div>
+      <a id="actionBtn" class="cta-btn" href="#" target="_blank">Commander via WhatsApp</a>
+    </section>
+
+    <!-- PAYMENT -->
+    <section id="payment">
+      <a class="back" onclick="showProduct(currentProduct)">← Retour</a>
+      <h2>Page de Paiement</h2>
+      <div class="order-summary" id="order-summary"></div>
+      <form id="payment-form" onsubmit="return handlePayment(event)">
+        <label for="name">Nom complet</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="method">Méthode de paiement</label>
+        <select id="method" name="method" required>
+          <option value="" disabled selected>Choisir une méthode</option>
+          <option value="card">Carte bancaire</option>
+          <option value="paypal">PayPal</option>
+          <option value="transfer">Virement bancaire</option>
+        </select>
+
+        <button type="submit">Confirmer et Payer</button>
+      </form>
+    </section>
+
+    <!-- CONFIRMATION -->
+    <section id="confirmation">
+      <h2>Merci pour votre commande !</h2>
+      <p>Nous avons bien reçu votre paiement. Un agent vous contactera bientôt.</p>
+      <button onclick="showHome()">Retour à l'accueil</button>
+    </section>
+  </main>
+
+<footer>
+    <p>© 2025 Yomo Digital — Tous droits réservés.</p>
+    <div class="socials">
+      <a href="[INSTA]"><i class="fab fa-instagram"></i></a>
+      <a href="[TIKTOK]"><i class="fab fa-tiktok"></i></a>
+      <a href="[FACEBOOK]"><i class="fab fa-facebook"></i></a>
+      <a href="[X]"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      fr: {
+        title: "Yomo Digital",
+        subtitle: "Abonnements digitaux fiables, rapides et pas chers. IPTV, Spotify, Netflix, YouTube Premium et plus – à portée de clic.",
+        "iptv-title": "IPTV",
+        "iptv-desc": "Streaming illimité de chaînes internationales.",
+        "spotify-title": "Spotify Premium",
+        "spotify-desc": "Musique sans pubs, en qualité max.",
+        "netflix-title": "Netflix",
+        "netflix-desc": "Séries, films et documentaires HD/4K.",
+        "yt-title": "YouTube Premium",
+        "yt-desc": "Ad-free, background play, downloads.",
+        plans: {
+          monthly: { label: "Mensuel", price: 20 },
+          quarterly: { label: "Trimestriel", price: 50 },
+          yearly: { label: "Annuel", price: 180 },
+          yearly: { label: "Annuel", price: 180 }
+          
+        },
+        payment: {
+          name: "Nom complet",
+          email: "Email",
+          method: "Méthode de paiement",
+          payButton: "Confirmer et Payer",
+          paymentTitle: "Page de Paiement",
+          paymentSummary: "Résumé de la commande",
+          confirmationTitle: "Merci pour votre commande !",
+          confirmationMsg: "Nous avons bien reçu votre paiement. Un agent vous contactera bientôt."
+        }
+      },
+      en: {
+        title: "Yomo Digital",
+        subtitle: "Reliable, fast and cheap digital subscriptions. IPTV, Spotify, Netflix, YouTube Premium & more — just a click away.",
+        "iptv-title": "IPTV",
+        "iptv-desc": "Unlimited international channel streaming.",
+        "spotify-title": "Spotify Premium",
+        "spotify-desc": "Ad-free music in max quality.",
+        "netflix-title": "Netflix",
+        "netflix-desc": "HD/4K series, movies and documentaries.",
+        "yt-title": "YouTube Premium",
+        "yt-desc": "Ad-free, background play, downloads.",
+        plans: {
+          monthly: { label: "Monthly", price: 20 },
+          quarterly: { label: "Quarterly", price: 50 },
+          yearly: { label: "Yearly", price: 180 }
+          
+        },
+        payment: {
+          name: "Full Name",
+          email: "Email",
+          method: "Payment Method",
+          payButton: "Confirm and Pay",
+          paymentTitle: "Payment Page",
+          paymentSummary: "Order Summary",
+          confirmationTitle: "Thank you for your order!",
+          confirmationMsg: "Your payment has been received. An agent will contact you soon."
+        }
+      },
+      ar: {
+        title: "يومو ديجيتال",
+        subtitle: "اشتراكات رقمية موثوقة وسريعة ورخيصة. IPTV، Spotify، Netflix، YouTube Premium والمزيد بنقرة واحدة.",
+        "iptv-title": "آي بي تي في",
+        "iptv-desc": "بث لا محدود للقنوات الدولية.",
+        "spotify-title": "سبوتيفاي بريميوم",
+        "spotify-desc": "موسيقى بدون إعلانات وبأعلى جودة.",
+        "netflix-title": "نتفليكس",
+        "netflix-desc": "مسلسلات وأفلام ووثائقيات بجودة HD/4K.",
+        "yt-title": "يوتيوب بريميوم",
+        "yt-desc": "بدون إعلانات، تشغيل في الخلفية، تحميل.",
+        plans: {
+          monthly: { label: "شهري", price: 20 },
+          quarterly: { label: "ربع سنوي", price: 50 },
+          yearly: { label: "سنوي", price: 180 }
+          
+        },
+        payment: {
+          name: "الاسم الكامل",
+          email: "البريد الإلكتروني",
+          method: "طريقة الدفع",
+          payButton: "تأكيد والدفع",
+          paymentTitle: "صفحة الدفع",
+          paymentSummary: "ملخص الطلب",
+          confirmationTitle: "شكراً على طلبك!",
+          confirmationMsg: "تم استلام الدفع الخاص بك. سيتواصل معك أحد الوكلاء قريباً."
+        }
+      }
+    };
+
+    const whatsappNumbers = {
+      IPTV: "212709640019",
+      Spotify: "212620637974",
+      Netflix: "212612345679",
+      YouTube: "212612345679"
+    };
+
+    let currentLang = "fr";
+    let currentProduct = null;
+    let currentPlan = null;
+
+    function changeLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.getElementById("lang").value = lang;
+
+      // Update home texts
+      document.getElementById("title").textContent = translations[lang].title;
+      document.getElementById("subtitle").textContent = translations[lang].subtitle;
+      document.getElementById("iptv-title").textContent = translations[lang]["iptv-title"];
+      document.getElementById("iptv-desc").textContent = translations[lang]["iptv-desc"];
+      document.getElementById("spotify-title").textContent = translations[lang]["spotify-title"];
+      document.getElementById("spotify-desc").textContent = translations[lang]["spotify-desc"];
+      document.getElementById("netflix-title").textContent = translations[lang]["netflix-title"];
+      document.getElementById("netflix-desc").textContent = translations[lang]["netflix-desc"];
+      document.getElementById("yt-title").textContent = translations[lang]["yt-title"];
+      document.getElementById("yt-desc").textContent = translations[lang]["yt-desc"];
+
+      // Update product page if visible
+      if (currentProduct) {
+        document.getElementById("product-title").textContent = translations[lang][currentProduct.toLowerCase() + "-title"];
+        document.getElementById("product-desc").textContent = translations[lang][currentProduct.toLowerCase() + "-desc"];
+        renderPlans();
+      }
+
+      // Update payment page labels
+      document.querySelector("label[for='name']").textContent = translations[lang].payment.name;
+      document.querySelector("label[for='email']").textContent = translations[lang].payment.email;
+      document.querySelector("label[for='method']").textContent = translations[lang].payment.method;
+      document.querySelector("#payment button").textContent = translations[lang].payment.payButton;
+      document.querySelector("#payment h2").textContent = translations[lang].payment.paymentTitle;
+
+      // Confirmation page
+      document.querySelector("#confirmation h2").textContent = translations[lang].payment.confirmationTitle;
+      document.querySelector("#confirmation p").textContent = translations[lang].payment.confirmationMsg;
+    }
+
+    function showHome() {
+      currentProduct = null;
+      currentPlan = null;
+      document.getElementById("home").style.display = "block";
+      document.getElementById("product").style.display = "none";
+      document.getElementById("payment").style.display = "none";
+      document.getElementById("confirmation").style.display = "none";
+    }
+
+    function showProduct(product) {
+      currentProduct = product;
+      currentPlan = null;
+      document.getElementById("home").style.display = "none";
+      document.getElementById("product").style.display = "block";
+      document.getElementById("payment").style.display = "none";
+      document.getElementById("confirmation").style.display = "none";
+
+      document.getElementById("product-title").textContent = translations[currentLang][product.toLowerCase() + "-title"];
+      document.getElementById("product-desc").textContent = translations[currentLang][product.toLowerCase() + "-desc"];
+
+      renderPlans();
+    }
+
+    function renderPlans() {
+      const plansContainer = document.getElementById("plans-container");
+      plansContainer.innerHTML = "";
+      const plans = translations[currentLang].plans;
+
+      for (const key in plans) {
+        const plan = plans[key];
+        const planDiv = document.createElement("div");
+        planDiv.classList.add("plan");
+        planDiv.dataset.plan = key;
+        planDiv.innerHTML = `
+          <h3>${plan.label}</h3>
+          <p>${plan.price} MAD</p>
+        `;
+        planDiv.onclick = () => selectPlan(key);
+        plansContainer.appendChild(planDiv);
+      }
+
+      updateActionBtn();
+    }
+
+    function selectPlan(planKey) {
+      currentPlan = planKey;
+      // Highlight selection
+      document.querySelectorAll(".plan").forEach(p => p.classList.remove("active"));
+      const selectedPlanDiv = [...document.querySelectorAll(".plan")].find(p => p.dataset.plan === planKey);
+      if (selectedPlanDiv) selectedPlanDiv.classList.add("active");
+
+      updateActionBtn();
+    }
+
+    function updateActionBtn() {
+      const btn = document.getElementById("actionBtn");
+      if (!currentPlan) {
+        btn.textContent = currentLang === "fr" ? "Choisissez un plan" : currentLang === "en" ? "Select a plan" : "اختر خطة";
+        btn.style.pointerEvents = "none";
+        btn.style.backgroundColor = "#555";
+        btn.href = "#";
+        return;
+      }
+      const planLabel = translations[currentLang].plans[currentPlan].label;
+      const productTitle = translations[currentLang][currentProduct.toLowerCase() + "-title"];
+      btn.textContent = currentLang === "fr" ? `Commander ${productTitle} - ${planLabel}` :
+                        currentLang === "en" ? `Order ${productTitle} - ${planLabel}` :
+                        `طلب ${productTitle} - ${planLabel}`;
+      btn.style.pointerEvents = "auto";
+      btn.style.backgroundColor = "var(--main-color)";
+      btn.href = "#";
+      btn.onclick = (e) => {
+        e.preventDefault();
+        showPayment();
+      };
+    }
+
+    function showPayment() {
+      document.getElementById("home").style.display = "none";
+      document.getElementById("product").style.display = "none";
+      document.getElementById("payment").style.display = "block";
+      document.getElementById("confirmation").style.display = "none";
+
+      const summary = document.getElementById("order-summary");
+      const productTitle = translations[currentLang][currentProduct.toLowerCase() + "-title"];
+      const planLabel = translations[currentLang].plans[currentPlan].label;
+      const price = translations[currentLang].plans[currentPlan].price;
+
+      summary.textContent = `${productTitle} — ${planLabel} — ${price} MAD`;
+    }
+
+    function handlePayment(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const method = document.getElementById("method").value;
+
+      if (!name || !email || !method) {
+        alert(currentLang === "fr" ? "Veuillez remplir tous les champs." :
+              currentLang === "en" ? "Please fill all fields." :
+              "يرجى ملء جميع الحقول.");
+        return false;
+      }
+
+      // Récupérer les infos pour le message WhatsApp
+      const productTitle = translations[currentLang][currentProduct.toLowerCase() + "-title"];
+      const planLabel = translations[currentLang].plans[currentPlan].label;
+      const price = translations[currentLang].plans[currentPlan].price;
+
+      const phoneNumber = whatsappNumbers[currentProduct];
+      if (!phoneNumber) {
+        alert("Numéro WhatsApp non configuré pour ce produit.");
+        return false;
+      }
+
+      // Construire le message WhatsApp
+      const message = encodeURIComponent(
+        (currentLang === "fr" ? "Bonjour," :
+         currentLang === "en" ? "Hello," :
+         "مرحباً،") + "\n" +
+        (currentLang === "fr" ? "Je souhaite commander :" :
+         currentLang === "en" ? "I want to order:" :
+         "أرغب في طلب:") + "\n" +
+        `${currentLang === "fr" ? "Produit" : currentLang === "en" ? "Product" : "المنتج"} : ${productTitle}\n` +
+        `${currentLang === "fr" ? "Plan" : currentLang === "en" ? "Plan" : "الخطة"} : ${planLabel}\n` +
+        `${currentLang === "fr" ? "Prix" : currentLang === "en" ? "Price" : "السعر"} : ${price} MAD\n\n` +
+        (currentLang === "fr" ? "Informations client :" :
+         currentLang === "en" ? "Customer info:" :
+         "معلومات العميل:") + "\n" +
+        `${currentLang === "fr" ? "Nom complet" : currentLang === "en" ? "Full Name" : "الاسم الكامل"} : ${name}\n` +
+        `Email : ${email}\n` +
+        `${currentLang === "fr" ? "Méthode de paiement choisie" : currentLang === "en" ? "Chosen payment method" : "طريقة الدفع المختارة"} : ${method}\n\n` +
+        (currentLang === "fr" ? "Merci de me contacter rapidement." :
+         currentLang === "en" ? "Please contact me soon." :
+         "يرجى التواصل معي في أقرب وقت.")
+      );
+
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+
+      // Afficher confirmation locale
+      document.getElementById("payment").style.display = "none";
+      document.getElementById("confirmation").style.display = "block";
+
+      // Ouvrir WhatsApp dans un nouvel onglet
+      window.open(whatsappURL, "_blank");
+
+      return false;
+    }
+
+    // Initialisation
+    changeLang(currentLang);
+    showHome();
+  </script>
+</body>
+</html>
+
+
